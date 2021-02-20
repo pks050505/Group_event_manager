@@ -4,6 +4,7 @@ import 'package:contribution_app/providers/providers.dart';
 import 'package:uuid/uuid.dart';
 
 class AddProject extends StatefulWidget {
+  static const route = '/addProject';
   @override
   _AddProjectState createState() => _AddProjectState();
 }
@@ -15,13 +16,13 @@ class _AddProjectState extends State<AddProject> {
 
   @override
   Widget build(BuildContext context) {
-    Future _save(BuildContext context) {
+    Future<void> _save(BuildContext context) {
       if (_formState.currentState.validate()) {
         Project project = Project(
           title: _titleController.text,
           id: Uuid().v4(),
         );
-        context.read(addProjectProvider(project));
+        context.read(addPrivateProjectProvider(project));
       }
     }
 

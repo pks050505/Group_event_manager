@@ -20,13 +20,13 @@ class ProjectScreen extends ConsumerWidget {
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(150),
           child: Container(
-            color: Colors.black12,
+            color: Colors.amber,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Filters',
+                  'All user',
                   style: Theme.of(context).textTheme.headline3,
                 )
               ],

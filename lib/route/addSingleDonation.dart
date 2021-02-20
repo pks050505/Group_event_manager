@@ -10,6 +10,15 @@ class AddSingleDonation extends StatelessWidget {
   final _donationFormState = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    _save() {
+      var donation = DonationModel(
+        title: _titleController.text,
+        givenAmount: num.tryParse(_amountController.text),
+      );
+      context.read(addUserDonationProvider(donation));
+      Navigator.pop(context);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Add User'),
@@ -40,17 +49,16 @@ class AddSingleDonation extends StatelessWidget {
                   hintText: 'Enter Expected Amount',
                   labelText: 'amount',
                 ),
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
               ),
               Spacer(),
               ElevatedButton(
-                  onPressed: () {
-                    var donation = DonationModel(
-                        title: _titleController.text,
-                        givenAmount: _amountController.text);
-                    context.read(addUserDonationProvider(donation));
-                    Navigator.pop(context);
-                  },
-                  child: Text('Add'))
+                onPressed: (_amountController.text.isEmpty &&
+                        _titleController.text.isEmpty)
+                    ? null
+                    : _save,
+                child: Text('Add'),
+              )
             ],
           ),
         ),

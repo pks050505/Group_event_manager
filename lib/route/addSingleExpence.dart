@@ -52,15 +52,15 @@ class AddSingleExpence extends StatelessWidget {
                   return null;
                 },
                 decoration: InputDecoration(
-                  hintText: 'Enter  Amount',
-                  labelText: 'amount',
+                  hintText: 'Donation',
+                  labelText: '\$ 501',
                 ),
               ),
               SizedBox(height: 50),
               ElevatedButton(
                 onPressed: () {
                   var expence = ExpenceModel(
-                    givenAmount: num.parse(_amountController.text),
+                    givenAmount: num.tryParse(_amountController.text),
                     title: _titleController.text,
                   );
                   context.read(addUserExpenceProvider(expence));

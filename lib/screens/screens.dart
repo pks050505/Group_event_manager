@@ -9,3 +9,4 @@ export 'package:flutter/material.dart';
 export './projectScreen.dart';
 export '../route/addSingleDonation.dart';
 export '../route/addSingleExpence.dart';
+export '../route/addProject.dart';

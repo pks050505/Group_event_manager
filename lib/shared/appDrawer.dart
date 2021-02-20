@@ -16,7 +16,7 @@ class AppDrawer extends ConsumerWidget {
 
     return Drawer(
         elevation: 4,
-        child: Column(
+        child: ListView(
           children: [
             Consumer(
               builder: (context, watch, child) {
@@ -59,7 +59,6 @@ class AppDrawer extends ConsumerWidget {
                 Navigator.pushReplacementNamed(context, Dashboard.route);
               },
             ),
-            Spacer(),
             ListTile(
               title: Text('Privacy Policy'),
               leading: Icon(Icons.pages),
@@ -79,6 +78,7 @@ class AppDrawer extends ConsumerWidget {
               },
             ),
             Divider(),
+            Spacer(),
             Container(
               margin: EdgeInsets.all(10),
               width: double.infinity,
@@ -91,7 +91,7 @@ class AppDrawer extends ConsumerWidget {
                   'LogOut',
                 ),
                 onPressed: () async {
-                  await context.read(authServiceProvider).logOut();
+                  await context.read(authClassProvider).logOut();
                 },
               ),
             ),

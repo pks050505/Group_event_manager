@@ -1,11 +1,9 @@
 import 'package:contribution_app/providers/providers.dart';
 import 'package:contribution_app/route/addProject.dart';
-
 import 'package:contribution_app/shared/appDrawer.dart';
+import 'package:contribution_app/shared/widgets.dart';
 import 'package:contribution_app/widgets/project_Item.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_riverpod/all.dart';
 
 class Dashboard extends StatelessWidget {
   static const route = '/dashboard';
@@ -37,15 +35,9 @@ class Dashboard extends StatelessWidget {
       ),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(FontAwesomeIcons.plus),
-        elevation: 4,
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return AddProject();
-          }));
-        },
-      ),
+      floatingActionButton: bottomNavigation('add Project', () {
+        Navigator.pushNamed(context, AddProject.route);
+      }),
     );
   }
 }

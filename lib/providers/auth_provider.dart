@@ -3,19 +3,19 @@ import 'package:contribution_app/sevices/authService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 //FirebaseAuth.instance provider Like a singleTon pattern
-final firbaseAuthProvider = Provider<FirebaseAuth>((ref) {
+final firbaseAuthInstance = Provider<FirebaseAuth>((ref) {
   return FirebaseAuth.instance;
 });
 //s
-final authServiceProvider = Provider<AuthService>((ref) {
-  return AuthService(ref.read(firbaseAuthProvider));
+final authClassProvider = Provider<AuthService>((ref) {
+  return AuthService(ref.read(firbaseAuthInstance));
 });
-final authStateProvider = StreamProvider<User>((ref) {
-  return ref.watch(authServiceProvider).onAuthStateChanges;
+final authStreamProvider = StreamProvider<User>((ref) {
+  return ref.watch(authClassProvider).onAuthStateChanges;
 });
 
 final userProvider = StateProvider<User>((ref) {
-  final user = ref.watch(authStateProvider).data?.value;
+  final user = ref.watch(authStreamProvider).data?.value;
   return user;
 });
 final uidProvider = StateProvider<String>((ref) {

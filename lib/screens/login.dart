@@ -13,10 +13,10 @@ class Login extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, watch) {
+  Widget build(context, watch) {
     final email = watch(emailProvider).state;
     final password = watch(passwordProvider).state;
-    final _auth = watch(authServiceProvider);
+    final _auth = watch(authClassProvider);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 8),
@@ -50,7 +50,7 @@ class Login extends ConsumerWidget {
                   Buttons.Google,
                   text: 'Login with google',
                   onPressed: () async {
-                    await context.read(authServiceProvider).googleSignIn();
+                    await _auth.googleSignIn();
                   },
                 ),
               ],

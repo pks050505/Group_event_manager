@@ -4,7 +4,7 @@ class DonationModel {
   final String title;
   final Timestamp time;
 
-  final String givenAmount;
+  final num givenAmount;
   DonationModel({this.title, this.givenAmount, this.time});
   factory DonationModel.fromMap(Map data) {
     return DonationModel(

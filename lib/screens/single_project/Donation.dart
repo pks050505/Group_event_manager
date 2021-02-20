@@ -1,5 +1,6 @@
 import 'package:contribution_app/providers/providers.dart';
 import 'package:contribution_app/screens/screens.dart';
+import 'package:contribution_app/shared/widgets.dart';
 import 'package:contribution_app/widgets/donation_item.dart';
 import 'package:flutter/material.dart';
 
@@ -26,13 +27,9 @@ class UserDonation extends ConsumerWidget {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, AddSingleDonation.route);
-        },
-        child: Icon(Icons.add),
-        tooltip: 'Add customer',
-      ),
+      floatingActionButton: bottomNavigation('add member', () {
+        Navigator.pushNamed(context, AddSingleDonation.route);
+      }),
     );
   }
 }

@@ -11,7 +11,7 @@ class ProjectItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, ProjectScreen.route, arguments: project);
+        Navigator.pushNamed(context, ProjectScreen.route);
         context.read(projectIdPro).state = project.id;
       },
       child: Container(

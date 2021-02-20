@@ -1,3 +1,6 @@
+import 'package:contribution_app/route/addProject.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'screens/screens.dart';
@@ -14,8 +17,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Group event manager',
+      title: 'Chanda',
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: FirebaseAnalytics())
+      ],
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -33,6 +39,7 @@ class MyApp extends StatelessWidget {
         UserExpence.route: (_) => UserExpence(),
         AddSingleDonation.route: (_) => AddSingleDonation(),
         AddSingleExpence.route: (_) => AddSingleExpence(),
+        AddProject.route: (_) => AddProject(),
       },
     );
   }

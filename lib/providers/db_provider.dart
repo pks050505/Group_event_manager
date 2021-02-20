@@ -15,10 +15,35 @@ final databaseServiceProvider = Provider<DatabaseService>((ref) {
 final projectIdPro = StateProvider<String>((ref) {
   return null;
 });
-final addProjectProvider =
+final addAllCollectionMoneyProvider = FutureProvider((ref) async {
+  var data = await userRef
+      .doc(ref.watch(uidProvider).state)
+      .collection('myProject')
+      .doc(ref.watch(projectIdPro).state)
+      .collection('UserDonation')
+      .get();
+  num sum = data.docs.fold(
+    0,
+    (p, e) => p + num.parse(e['givenAmount']),
+  );
+  return sum;
+});
+final projectIdProvider = StateProvider<String>((ref) {
+  return null;
+});
+final addPrivateProjectProvider =
     Provider.family.autoDispose<void, Project>((ref, project) {
   return userRef
       .doc(ref.watch(uidProvider).state)
+      .collection('myProject')
+      .doc(project.id)
+      .set(project.toMap());
+});
+
+final addPublicProjectProvider =
+    Provider.family.autoDispose<void, Project>((ref, project) {
+  return userRef
+      .doc()
       .collection('myProject')
       .doc(project.id)
       .set(project.toMap());
