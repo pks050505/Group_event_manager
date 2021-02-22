@@ -27,7 +27,7 @@ class UserDonation extends ConsumerWidget {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: bottomNavigation('add member', () {
+      floatingActionButton: bottomNavigation('add new member', () {
         Navigator.pushNamed(context, AddSingleDonation.route);
       }),
     );

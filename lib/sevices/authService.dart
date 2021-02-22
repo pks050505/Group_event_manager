@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:js';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contribution_app/models/userModel.dart';
-import 'package:contribution_app/providers/providers.dart';
-import 'package:contribution_app/screens/screens.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -19,7 +17,7 @@ class AuthService {
 
   Stream<User> get onAuthStateChanges => firebaseAuth.authStateChanges();
 
-  Future<void> login(String email, String password) {
+  Future login(String email, String password) {
     try {
       return firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);

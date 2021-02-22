@@ -1,14 +1,72 @@
+import 'package:contribution_app/models/models.dart';
 import 'package:contribution_app/providers/providers.dart';
-import 'package:contribution_app/route/addProject.dart';
+
 import 'package:contribution_app/shared/appDrawer.dart';
 import 'package:contribution_app/shared/widgets.dart';
 import 'package:contribution_app/widgets/project_Item.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class Dashboard extends StatelessWidget {
   static const route = '/dashboard';
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController projectController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    Future<void> _save(BuildContext context) {
+      if (formKey.currentState.validate()) {
+        Project project = Project(
+          title: projectController.text,
+          id: Uuid().v4(),
+        );
+        context.read(addPrivateProjectProvider(project));
+        Navigator.pop(context);
+      }
+    }
+
+    void addNewProjectDialog() {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Add new project'),
+            content: Form(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              key: formKey,
+              child: TextFormField(
+                validator: (v) {
+                  if (v.isEmpty) {
+                    return 'project name can\'t empty';
+                  }
+                },
+                controller: projectController,
+                autofocus: true,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(), labelText: 'project name'),
+              ),
+            ),
+            actions: [
+              ButtonBar(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('Cancel'),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        _save(context);
+                      },
+                      child: Text('add'))
+                ],
+              )
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
@@ -17,6 +75,7 @@ class Dashboard extends StatelessWidget {
       body: Consumer(
         builder: (_, watch, child) {
           return Container(
+            padding: const EdgeInsets.only(bottom: 20),
             margin: const EdgeInsets.symmetric(horizontal: 8),
             child: watch(listOfProjectStreamProvider).when(
               data: (val) {
@@ -35,8 +94,9 @@ class Dashboard extends StatelessWidget {
       ),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: bottomNavigation('add Project', () {
-        Navigator.pushNamed(context, AddProject.route);
+      floatingActionButton: bottomNavigation('add new Project', () {
+        // Navigator.pushNamed(context, AddProject.route);
+        addNewProjectDialog();
       }),
     );
   }

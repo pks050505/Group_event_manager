@@ -26,7 +26,7 @@ class UserExpence extends StatelessWidget {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: bottomNavigation('add expence', () {
+      floatingActionButton: bottomNavigation('add new expence', () {
         Navigator.pushNamed(context, AddSingleExpence.route);
       }),
     );
