@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:contribution_app/models/models.dart';
 
 import 'package:contribution_app/models/userModel.dart';
@@ -14,6 +16,15 @@ final databaseServiceProvider = Provider<DatabaseService>((ref) {
 });
 final projectIdPro = StateProvider<String>((ref) {
   return null;
+});
+final deleteProjectFutureProvider = FutureProvider<String>((ref) {
+  return userRef
+      .doc(ref.watch(uidProvider).state)
+      .collection('myProject')
+      .doc(ref.watch(projectIdPro).state)
+      .delete()
+      .catchError(() => 'Something went wrong...')
+      .then((value) => 'Deleted');
 });
 final addAllCollectionMoneyProvider = FutureProvider((ref) async {
   var data = await userRef

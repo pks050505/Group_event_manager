@@ -39,7 +39,43 @@ class ProjectItem extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline6,
                   textAlign: TextAlign.center,
                 ),
-                Icon(Icons.delete, color: Colors.redAccent),
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          AlertDialog(
+                            title: Text('Delete'),
+                            content: Text('Are you sure?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text('Cancle'),
+                              ),
+                              Spacer(),
+                              ElevatedButton(
+                                child: Text('Delete'),
+                                onPressed: () {
+                                  context
+                                      .read(deleteProjectFutureProvider)
+                                      .whenData((value) {
+                                    Navigator.pop(context);
+                                    Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text('$value'),
+                                      duration: Duration(seconds: 5),
+                                    ));
+                                  });
+                                },
+                              )
+                            ],
+                          );
+                        });
+                    // context.read(deleteProjectFutureProvider);
+                  },
+                ),
               ],
             )
           ],
